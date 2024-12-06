@@ -1,12 +1,14 @@
 package Entity;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Ordine {
     private int id;
     private String cliente;
     private LocalDate data;
     private int importo;
+    private int idimpiegato;
     private Impiegato impiegato;
 
     public int getId(){
@@ -39,4 +41,26 @@ public class Ordine {
     public void setImpiegato(Impiegato impiegato){
         this.impiegato = impiegato;
     }
+    public int getIdimpiegato(){
+        return idimpiegato;
+    }
+    public void setIdimpiegato(int idimpiegato){
+        this.idimpiegato = idimpiegato;
+    }
+
+    public String toString(){
+        return id+"\t"+cliente+"\t"+data+"\t"+importo+"\t"+idimpiegato+"\n";
+    }
+
+    public boolean equals(Object o){
+        if(this==o) return true;
+        if(o==null || getClass() != o.getClass()) return false;
+        Ordine ordine = (Ordine)o;
+        return id==ordine.id;
+    }
+
+    public int hashCode(){
+        return Objects.hash(id);
+    }
+
 }
