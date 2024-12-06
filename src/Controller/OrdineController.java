@@ -134,4 +134,23 @@ public class OrdineController {
            System.out.println(o);
        }
    }
+   public void impiegatiSoldiTot(){
+       List<Map.Entry<Impiegato,Double>> lista=ordineService.impiegatiSoldiTot();
+       for(Map.Entry<Impiegato,Double> o:lista){
+           System.out.println(o);
+       }
+   }
+
+   public void livelloSoldiTot(){
+       List<Map.Entry<Integer,Double>> lista=ordineService.livelliSoldiTot();
+       for(Map.Entry<Integer,Double> o:lista){
+           System.out.println(o);
+       }
+   }
+   public void impiegatiOrdini(){
+       List<Map.Entry<Impiegato,Long>> lista=ordineService.impiegatiOrdini();
+       for(Map.Entry<Impiegato,Long> o:lista){
+           System.out.println(o);
+       }
+   }
 }

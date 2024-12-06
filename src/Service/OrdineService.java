@@ -2,6 +2,7 @@ package Service;
 
 import Entity.Impiegato;
 import Entity.Ordine;
+import Repository.ImpiegatoRepository;
 import Repository.OrdineRepository;
 
 import java.time.LocalDate;
@@ -83,9 +84,32 @@ public class OrdineService {
                 .map(Impiegato::getLivello)
                 .distinct()
                 .collect(Collectors.toMap(
-                        livello -> livello,  // Livello come chiave
+                        livello -> livello,
                         livello -> lista.getOrDefault(livello, 0L)
                 ));
         return lista2.entrySet().stream().collect(Collectors.toList());
     }
+
+    public List<Map.Entry<Impiegato,Double>> impiegatiSoldiTot(){
+        List<Ordine> ordini=ordineRepository.readOrdine();
+        Map<Impiegato,Double> lista=ordini.stream().collect(Collectors.groupingBy(Ordine::getImpiegato,Collectors.summingDouble(Ordine::getImporto)));
+        return lista.entrySet().stream().collect(Collectors.toList());
+    }
+    public List<Map.Entry<Integer,Double>> livelliSoldiTot(){
+        List<Ordine> ordini=ordineRepository.readOrdine();
+        Map<Integer,Double> lista=ordini.stream().collect(Collectors.groupingBy(o->o.getImpiegato().getLivello(),Collectors.summingDouble(Ordine::getImporto)));
+        return lista.entrySet().stream().collect(Collectors.toList());
+    }
+
+    public List<Map.Entry<Impiegato,Long>> impiegatiOrdini(){
+        ImpiegatoService impiegatoService=new ImpiegatoService();
+        List<Ordine> ordini=ordineRepository.readOrdine();
+        Map<Impiegato,Long> lista=ordini.stream().filter(o->o.getId()!=0).collect(Collectors.groupingBy(Ordine::getImpiegato,Collectors.counting()));
+        List<Impiegato> impiegati=impiegatoService.readImpiegato();
+        Map<Impiegato,Long> lista2=impiegati.stream()
+                .collect(Collectors.toMap(impiegato->impiegato,impiegato->lista.getOrDefault(impiegato,0L)));
+                return lista2.entrySet().stream().collect(Collectors.toList());
+
+    }
+
 }

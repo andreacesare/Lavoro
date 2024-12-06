@@ -67,6 +67,9 @@ public class Main {
                 System.out.println("7. Oridni di febbraio");
                 System.out.println("8. Lista Clienti e la loro spesa complessiva");
                 System.out.println("10. Lista #ordini per livello impiegato");
+                System.out.println("11. Lista impiegati con importi complessivi");
+                System.out.println("12 Lista livelli con importi complessivi");
+                System.out.println("13. Lista #ordini per Impiegato");
                 System.out.println("9. Exit");
                 System.out.print("inserisci la tua scelta: ");
                 choice2 = scanner.nextInt();
@@ -100,6 +103,14 @@ public class Main {
                     case 10:
                         ordineController.livelliOrdini();
                         break;
+                    case 11:
+                        ordineController.impiegatiSoldiTot();
+                        break;
+                    case 12:
+                        ordineController.livelloSoldiTot();;
+                        break;
+                    case 13:
+                        ordineController.impiegatiOrdini();
                     case 9:
                         System.out.println("Exiting");
                         break;
